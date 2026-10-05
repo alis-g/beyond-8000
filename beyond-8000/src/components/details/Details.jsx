@@ -3,16 +3,16 @@ import { useParams } from "react-router";
 import { request } from "../../utils/requester";
 
 export default function Details() {
-    const {expeditionId} = useParams() 
+    const { expeditionId } = useParams()
     const [expedition, setExpedition] = useState({})
 
-    useEffect(()=>{
+    useEffect(() => {
         request(`/expeditions?id=eq.${expeditionId}`)
-        .then(result =>{
-            setExpedition(result[0])
-        })
+            .then(result => {
+                setExpedition(result[0])
+            })
     }, [expeditionId])
-    
+
 
     return (
         <section id="details" className="section details-section">
@@ -53,6 +53,13 @@ export default function Details() {
                         </div>
                     </div>
                     <button className="btn btn-primary btn-large">Join Expedition</button>
+                    <button className="btn btn-secondary btn-large">
+                        Edit
+                    </button>
+
+                    <button className="btn btn-danger btn-large">
+                        Delete
+                    </button>
                     <p className="spots">
                         <span />
                         Only 2 spots remaining

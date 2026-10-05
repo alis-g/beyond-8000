@@ -1,0 +1,26 @@
+.details-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+}
+
+.btn-secondary:hover {
+    background: var(--card-light);
+}
+
+.btn-danger {
+    background: #c94a4a;
+    color: #fff;
+    border: 1px solid #c94a4a;
+}
+
+.btn-danger:hover {
+    background: #a83b3b;
+}
