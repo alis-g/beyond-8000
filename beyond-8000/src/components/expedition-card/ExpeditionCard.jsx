@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 export default function ExpeditionCard({
     id,
     title,
@@ -52,9 +54,9 @@ export default function ExpeditionCard({
                         <strong>0 / {max_participants}</strong> joined
                     </span>
                 </div>
-                <a href="#details" className="btn btn-card">
+                <Link to={`/expeditions/${id}`} className="btn btn-card">
                     View Expedition →
-                </a>
+                </Link>
             </div>
         </article>
     );
