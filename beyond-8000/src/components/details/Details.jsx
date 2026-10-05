@@ -52,14 +52,11 @@ export default function Details() {
                             <strong>{expedition.start_date}</strong>
                         </div>
                     </div>
-                    <button className="btn btn-primary btn-large">Join Expedition</button>
-                    <button className="btn btn-secondary btn-large">
-                        Edit
-                    </button>
-
-                    <button className="btn btn-danger btn-large">
-                        Delete
-                    </button>
+                   <div className="details-actions">
+    <button className="btn btn-primary btn-large">Join Expedition</button>
+    <button className="btn btn-secondary btn-large">Edit</button>
+    <button className="btn btn-danger btn-large">Delete</button>
+</div>
                     <p className="spots">
                         <span />
                         Only 2 spots remaining

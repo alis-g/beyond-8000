@@ -1,0 +1,35 @@
+/* =========================
+   TYPOGRAPHY
+========================= */
+
+.eyebrow {
+    display: inline-block;
+    margin-bottom: 12px;
+    color: var(--blue);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 45px;
+}
+
+.section-heading h2,
+.form-heading h2,
+.details-content h2,
+.auth-card h2 {
+    color: var(--text);
+    font-family: "Playfair Display", serif;
+    font-size: clamp(35px, 4vw, 52px);
+    line-height: 1.1;
+}
+
+.view-all {
+    color: var(--blue);
+    font-size: 13px;
+    font-weight: 700;
+}

@@ -1,0 +1,133 @@
+/* =========================
+   DETAILS
+========================= */
+
+.details-section {
+    background: #eaf5fa;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 70px;
+    align-items: center;
+}
+
+.details-image {
+    position: relative;
+    height: 590px;
+    overflow: hidden;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(32, 83, 108, 0.12);
+}
+
+.details-image img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.image-badge {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    display: flex;
+    flex-direction: column;
+    padding: 18px 22px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: 14px;
+    backdrop-filter: blur(12px);
+}
+
+.image-badge strong {
+    color: var(--blue);
+    font-family: "Playfair Display", serif;
+    font-size: 27px;
+}
+
+.image-badge span {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.details-location {
+    margin: 18px 0;
+    color: var(--blue);
+    font-size: 13px;
+}
+
+.details-content > p {
+    color: var(--muted);
+    font-size: 15px;
+}
+
+.details-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 35px 0;
+}
+
+.details-meta div {
+    padding: 18px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.details-meta span {
+    display: block;
+    color: var(--muted);
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.details-meta strong {
+    display: block;
+    margin-top: 5px;
+    color: #244456;
+    font-size: 14px;
+}
+
+.details-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 30px;
+}
+
+.btn-secondary {
+    background: #2563eb;
+    color: #ffffff;
+    border: 1px solid #b8d2ff;
+}
+
+.btn-secondary:hover {
+    background: #d7e7ff;
+}
+
+.btn-danger {
+    background: #c94a4a;
+    color: #fff;
+    border: 1px solid #c94a4a;
+}
+
+.btn-danger:hover {
+    background: #a83b3b;
+}
+
+.spots {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 15px;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.spots span {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--gold);
+}

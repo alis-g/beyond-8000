@@ -1,0 +1,83 @@
+/* =========================
+   FORMS
+========================= */
+
+.form-section {
+    background: var(--bg);
+}
+
+.form-heading {
+    margin-bottom: 45px;
+}
+
+.form-heading p {
+    max-width: 600px;
+    margin-top: 12px;
+    color: var(--muted);
+}
+
+.expedition-form {
+    padding: 35px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: 0 12px 35px rgba(28, 68, 91, 0.06);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.form-row.three {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    margin-bottom: 8px;
+    color: #355263;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 13px 15px;
+    outline: none;
+    background: #f8fbfd;
+    border: 1px solid #d6e3e9;
+    border-radius: 9px;
+    color: var(--text);
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(25, 118, 168, 0.08);
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #9aabb4;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+}

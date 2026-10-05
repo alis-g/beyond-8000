@@ -1,0 +1,60 @@
+/* =========================
+   AUTH
+========================= */
+
+.auth-section {
+    min-height: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 100px 20px;
+    background:
+        linear-gradient(
+            rgba(232, 244, 250, 0.88),
+            rgba(244, 249, 252, 0.94)
+        ),
+        url("https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1800&q=85")
+        center / cover;
+}
+
+.auth-card {
+    width: min(460px, 100%);
+    padding: 45px;
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    box-shadow: 0 25px 80px rgba(31, 77, 100, 0.15);
+    text-align: center;
+}
+
+.auth-logo {
+    width: 60px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 28px;
+}
+
+.auth-card > p {
+    margin: 12px 0 30px;
+    color: var(--muted);
+    font-size: 13px;
+}
+
+.auth-card form {
+    text-align: left;
+}
+
+.auth-switch {
+    margin-top: 25px !important;
+    margin-bottom: 0 !important;
+}
+
+.auth-switch a {
+    color: var(--blue);
+    font-weight: 700;
+}
