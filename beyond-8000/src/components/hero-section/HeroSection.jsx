@@ -44,12 +44,12 @@ export default function HeroSection() {
                             <span>→</span>
                         </Link>
 
-                        <a
-                            href="#add-expedition"
+                        <Link
+                            to="/create"
                             className="btn btn-ghost btn-large"
                         >
                             Create Expedition
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="hero-stats">
