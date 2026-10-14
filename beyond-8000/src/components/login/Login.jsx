@@ -1,3 +1,5 @@
+import { Link } from "react-router"
+
 export default function Login() {
     return(
                         <section id="login" className="auth-section">
@@ -19,7 +21,7 @@ export default function Login() {
                         </form>
                         <p className="auth-switch">
                             Don't have an account?
-                            <a href="#register">Create one</a>
+                            <Link to={"/register"}>Create one</Link>
                         </p>
                     </div>
                 </section>
