@@ -6,6 +6,7 @@ import HeroSection from "./components/hero-section/HeroSection"
 import Details from "./components/details/Details"
 import Login from "./components/login/Login"
 import Register from "./components/register/Register"
+import Create from "./components/create /Create"
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
                 <Route path="/expeditions/:expeditionId" element={<Details />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/create" element={<Create />} />
             </Routes>
 
             <Footer />
