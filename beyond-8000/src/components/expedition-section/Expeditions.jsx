@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { request } from "../../utils/requester.js";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
+import request from "../../utils/requester";
 
 
 
 export default function Expeditions() {
     const [expeditions, setExpeditions] = useState([]);
     useEffect(()=> {
-        request("/expeditions")
+        request("/expeditions?order=created_at.desc", "GET", null)
         .then(setExpeditions)
         .catch(error => alert(error))
     }, [])

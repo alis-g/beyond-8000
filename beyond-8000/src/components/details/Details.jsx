@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { request } from "../../utils/requester";
+import request from "../../utils/requester";
+
+
 
 export default function Details() {
     const { expeditionId } = useParams()
@@ -11,6 +13,7 @@ export default function Details() {
             .then(result => {
                 setExpedition(result[0])
             })
+            .catch(err => alert(err))
     }, [expeditionId])
 
 
