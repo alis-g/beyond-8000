@@ -18,7 +18,7 @@ function App() {
 
     const register = async (userData) => {
         try {
-           const result = authApi.register(userData)
+           const result = await authApi.register(userData)
             setAuth(result)
 
             navigate('/')
@@ -27,6 +27,17 @@ function App() {
             alert(error.message)
         }
     }
+
+    const login = async (userData) => {
+        try {
+            const result = await authApi.login(userData)
+            setAuth(result)
+            navigate('/')
+            
+        } catch (error) {
+            alert(error.message)
+        }   
+     }
     return (
         <>
 
@@ -35,7 +46,7 @@ function App() {
                 <Route path="/" element={<HeroSection />}/>
                 <Route path="/expeditions" element={<Expeditions />}/>
                 <Route path="/expeditions/:expeditionId" element={<Details />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/login" element={<Login onLogin={login} />} />
                 <Route path="/register" element={<Register onRegister={register} />} />
                 <Route path="/create" element={<Create />} />
             </Routes>

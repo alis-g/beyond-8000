@@ -1,16 +1,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
-import { request } from "../../utils/requester";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
+import request from "../../utils/requester.js";
+
 
 export default function HeroSection() {
 
     const [latestExpeditions , setLatestExpeditions] = useState([])
 
+
     useEffect(()=>{
-        request('expeditions?order=created_at.desc&limit=3', 'GET', null)
+        const abortController = new AbortController()
+        request('/expeditions?order=created_at.desc&limit=3', 'GET', null)
         .then(setLatestExpeditions)
         .catch(err => alert(err))
+
+        return () => {
+            abortController.abort("Home component unmounted")
+        }
     }, [])
 
     return (
