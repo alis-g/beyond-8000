@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useContext, useEffect, useState } from "react";
+import { Link, useParams } from "react-router";
 import request from "../../utils/requester";
+import AuthContext from "../../context/auth-context";
 
 
 
 export default function Details() {
+    const {user, accessToken, isAuthenticated} = useContext(AuthContext)
     const { expeditionId } = useParams()
     const [expedition, setExpedition] = useState({})
+
+    const isOwner = user && user?.id === expedition?.user_id
 
     useEffect(() => {
         request(`/expeditions?id=eq.${expeditionId}`)
@@ -55,11 +59,14 @@ export default function Details() {
                             <strong>{expedition.start_date}</strong>
                         </div>
                     </div>
-                   <div className="details-actions">
-    <button className="btn btn-primary btn-large">Join Expedition</button>
-    <button className="btn btn-secondary btn-large">Edit</button>
-    <button className="btn btn-danger btn-large">Delete</button>
-</div>
+                    <div className="details-actions">
+                        {isAuthenticated && !isOwner && <button className="btn btn-primary btn-large">Join Expedition</button>}
+                        {isOwner && ( <>
+                        <Link to={'/edit'} className="btn btn-secondary btn-large">Edit</Link>
+                        <Link to={''} className="btn btn-danger btn-large">Delete</Link>
+                        </>)}
+                        
+                    </div>
                     <p className="spots">
                         <span />
                         Only 2 spots remaining
