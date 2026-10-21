@@ -23,7 +23,7 @@ export default function Header({
                         ?
                         (<>
                             <Link to="/create" className="btn btn-primary">Create Expedition</Link>
-                            <Link to="/login" className="btn btn-outline">Logout</Link>
+                            <Link to="/logout" className="btn btn-outline">Logout</Link>
 
                         </>)
                         : (<>

@@ -12,6 +12,7 @@ import { authApi } from "./api"
 import AuthContext from "./context/auth-context"
 import Logout from "./components/logout/logout"
 
+
 function App() {
 
     const [auth, setAuth] = useState(null)
@@ -41,7 +42,7 @@ function App() {
         }
     }
 
-    const logoutAction = async() => {
+    const logoutAction = async () => {
         try {
             await authApi.logout(auth?.access_token)
             setAuth(null)
@@ -66,10 +67,10 @@ function App() {
             <Routes>
                 <Route path="/" element={<HeroSection />} />
                 <Route path="/expeditions" element={<Expeditions />} />
-                <Route path="/expeditions/:expeditionId" element={<Details />} />
-                <Route path="/login" element={<Login onLogin={login} />} />
-                <Route path="/register" element={<Register onRegister={register} />} />
                 <Route path="/create" element={<Create />} />
+                <Route path="/expeditions/:expeditionId" element={<Details />} />
+                <Route path="/register" element={<Register onRegister={register} />} />
+                <Route path="/login" element={<Login onLogin={login} />} />
                 <Route path="/logout" element={<Logout />} />
             </Routes>
 
