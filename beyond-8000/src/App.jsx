@@ -9,6 +9,8 @@ import Register from "./components/register/Register"
 import Create from "./components/create /Create"
 import { useState } from "react"
 import { authApi } from "./api"
+import AuthContext from "./context/auth-context"
+import Logout from "./components/logout/logout"
 
 function App() {
 
@@ -18,11 +20,11 @@ function App() {
 
     const register = async (userData) => {
         try {
-           const result = await authApi.register(userData)
+            const result = await authApi.register(userData)
             setAuth(result)
 
             navigate('/')
-            
+
         } catch (error) {
             alert(error.message)
         }
@@ -33,26 +35,46 @@ function App() {
             const result = await authApi.login(userData)
             setAuth(result)
             navigate('/')
-            
+
         } catch (error) {
             alert(error.message)
-        }   
-     }
-    return (
-        <>
+        }
+    }
 
-            <Header isAuth = {!!auth}/>
+    const logoutAction = async() => {
+        try {
+            await authApi.logout(auth?.access_token)
+            setAuth(null)
+        } catch (error) {
+            alert(error.message)
+        }
+    }
+
+    const contextValue = {
+        accessToken: auth?.access_token,
+        user: auth?.user,
+        isAuthenticated: !!auth,
+        register,
+        login,
+        logout: logoutAction,
+    }
+    return (
+        <AuthContext.Provider value={contextValue}>
+
+            <Header isAuth={!!auth} />
+
             <Routes>
-                <Route path="/" element={<HeroSection />}/>
-                <Route path="/expeditions" element={<Expeditions />}/>
+                <Route path="/" element={<HeroSection />} />
+                <Route path="/expeditions" element={<Expeditions />} />
                 <Route path="/expeditions/:expeditionId" element={<Details />} />
                 <Route path="/login" element={<Login onLogin={login} />} />
                 <Route path="/register" element={<Register onRegister={register} />} />
                 <Route path="/create" element={<Create />} />
+                <Route path="/logout" element={<Logout />} />
             </Routes>
 
             <Footer />
-        </>
+        </AuthContext.Provider>
     )
 }
 
