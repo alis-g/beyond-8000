@@ -12,6 +12,13 @@ export const create = (data, accessToken) => {
     })
 }
 
+export const update = async (expeditionId, data, accessToken) =>{
+    return request(`/expeditions?id=eq.${expeditionId}`, 'PUT', data, {
+        headers:{
+            ...getAuthHeader(accessToken)
+        }
+    })
+}
 function getAuthHeader(accessToken) {
     return {
         ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {})

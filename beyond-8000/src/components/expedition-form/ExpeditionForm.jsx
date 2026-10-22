@@ -1,7 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AuthContext from "../../context/auth-context";
 import { expeditionApi } from "../../api";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
+import request from "../../utils/requester";
 
 const initialValues = {
     title: '',
@@ -17,10 +18,22 @@ const initialValues = {
     description: ''
 }
 
-export default function Create() {
+export default function ExpeditionForm() {
     const { accessToken } = useContext(AuthContext)
     const navigate = useNavigate()
     const [values, setValues] = useState(initialValues)
+    const { expeditionId } = useParams()
+
+    const isEdit = Boolean(expeditionId)
+
+    useEffect(() => {
+        if (!isEdit) {
+            return
+        }
+        request(`/expeditions?id=eq.${expeditionId}`)
+            .then(data => setValues(data[0]))
+            .catch(error => alert(error.message))
+    }, [expeditionId, isEdit])
 
     const changeHandler = (e) => {
         setValues(state => ({
@@ -31,22 +44,37 @@ export default function Create() {
 
     const submitAction = async () => {
         try {
-           await expeditionApi.create(values, accessToken)
+            if (isEdit) {
+                await expeditionApi.update(expeditionId, values, accessToken)
+            } else {
+                await expeditionApi.create(values, accessToken)
+            }
             navigate('/expeditions')
         } catch (error) {
             alert(error.message)
         }
     }
     return (
-        <section id="add-expedition" className="section form-section">
+        <section
+            id={isEdit ? "edit-expedition" : "add-expedition"}
+            className="section form-section">
             <div className="container narrow">
                 <div className="form-heading">
-                    <span className="eyebrow">SHARE YOUR ADVENTURE</span>
-                    <h2>Create an Expedition</h2>
-                    <p>
-                        Have a route in mind? Create your own expedition and invite other
-                        adventurers.
-                    </p>
+                    {isEdit
+                        ? (<>
+                            <span className="eyebrow">MANAGE EXPEDITION</span>
+                            <h2>Edit Expedition</h2>
+                        </>
+                        )
+                        : (<>
+                            <span className="eyebrow">SHARE YOUR ADVENTURE</span>
+                            <h2>Create an Expedition</h2>
+                            <p>
+                                Have a route in mind? Create your own expedition and invite other
+                                adventurers.
+                            </p>
+                        </>)}
+                   
                 </div>
                 <form className="expedition-form" action={submitAction}>
                     <div className="form-row">
@@ -68,62 +96,62 @@ export default function Create() {
                     <div className="form-row">
                         <div className="form-group">
                             <label>Country</label>
-                            <input type="text" 
-                            name="country"
-                            placeholder="Nepal" 
-                            value={values.country} onChange={changeHandler} />
+                            <input type="text"
+                                name="country"
+                                placeholder="Nepal"
+                                value={values.country} onChange={changeHandler} />
                         </div>
                         <div className="form-group">
                             <label>Difficulty</label>
-                            <input type="text" 
-                            name="difficulty"
-                            placeholder="e.g Easy" 
-                            value={values.difficulty} onChange={changeHandler} />
+                            <input type="text"
+                                name="difficulty"
+                                placeholder="e.g Easy"
+                                value={values.difficulty} onChange={changeHandler} />
                         </div>
                     </div>
                     <div className="form-row three">
                         <div className="form-group">
                             <label>Duration</label>
-                            <input type="number" 
-                            name="duration"
-                            placeholder={14} 
-                            value={values.duration} onChange={changeHandler} />
+                            <input type="number"
+                                name="duration"
+                                placeholder={14}
+                                value={values.duration} onChange={changeHandler} />
                         </div>
                         <div className="form-group">
                             <label>Altitude (m)</label>
-                            <input type="number" 
-                            name="altitude"
-                            placeholder={5364} 
-                            value={values.altitude} onChange={changeHandler} />
+                            <input type="number"
+                                name="altitude"
+                                placeholder={5364}
+                                value={values.altitude} onChange={changeHandler} />
                         </div>
                         <div className="form-group">
                             <label>Max participants</label>
-                            <input type="number" 
-                            name="max_participants"
-                            placeholder={20} 
-                            value={values.max_participants} onChange={changeHandler} />
+                            <input type="number"
+                                name="max_participants"
+                                placeholder={20}
+                                value={values.max_participants} onChange={changeHandler} />
                         </div>
                     </div>
                     <div className="form-row">
                         <div className="form-group">
                             <label>Start date</label>
-                            <input type="date" 
-                            name="start_date"
-                            value={values.start_date} onChange={changeHandler} />
+                            <input type="date"
+                                name="start_date"
+                                value={values.start_date} onChange={changeHandler} />
                         </div>
                         <div className="form-group">
                             <label>End date</label>
-                            <input type="date" 
-                            name="end_date"
-                            value={values.end_date} onChange={changeHandler} />
+                            <input type="date"
+                                name="end_date"
+                                value={values.end_date} onChange={changeHandler} />
                         </div>
                     </div>
                     <div className="form-group">
                         <label>Image URL</label>
-                        <input type="url" 
-                        name="image_url"
-                        placeholder="https://images.unsplash.com/..."
-                        value={values.image_url} onChange={changeHandler} />
+                        <input type="url"
+                            name="image_url"
+                            placeholder="https://images.unsplash.com/..."
+                            value={values.image_url} onChange={changeHandler} />
                     </div>
                     <div className="form-group">
                         <label>Description</label>
@@ -135,7 +163,7 @@ export default function Create() {
                         />
                     </div>
                     <button className="btn btn-primary btn-large" type="submit">
-                        Create Expedition
+                       {isEdit ? "Edit Expedition" : "Create Expedition"} 
                     </button>
                 </form>
             </div>

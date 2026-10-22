@@ -62,7 +62,7 @@ export default function Details() {
                     <div className="details-actions">
                         {isAuthenticated && !isOwner && <button className="btn btn-primary btn-large">Join Expedition</button>}
                         {isOwner && ( <>
-                        <Link to={'/edit'} className="btn btn-secondary btn-large">Edit</Link>
+                        <Link to={`/edit/${expeditionId}`} className="btn btn-secondary btn-large">Edit</Link>
                         <Link to={''} className="btn btn-danger btn-large">Delete</Link>
                         </>)}
                         

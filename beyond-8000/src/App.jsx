@@ -6,11 +6,12 @@ import HeroSection from "./components/hero-section/HeroSection"
 import Details from "./components/details/Details"
 import Login from "./components/login/Login"
 import Register from "./components/register/Register"
-import Create from "./components/create /Create"
+import Create from "./components/expedition-form/ExpeditionForm"
 import { useState } from "react"
 import { authApi } from "./api"
 import AuthContext from "./context/auth-context"
 import Logout from "./components/logout/logout"
+import ExpeditionForm from "./components/expedition-form/ExpeditionForm"
 
 
 function App() {
@@ -67,7 +68,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<HeroSection />} />
                 <Route path="/expeditions" element={<Expeditions />} />
-                <Route path="/create" element={<Create />} />
+                <Route path="/create" element={<ExpeditionForm />} />
+                <Route path="/edit/:expeditionId" element={<ExpeditionForm />} />
                 <Route path="/expeditions/:expeditionId" element={<Details />} />
                 <Route path="/register" element={<Register onRegister={register} />} />
                 <Route path="/login" element={<Login onLogin={login} />} />
