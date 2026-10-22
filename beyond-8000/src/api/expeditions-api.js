@@ -1,7 +1,11 @@
 import request from "../utils/requester"
 
-export const getAll = () => {
-    
+export const getAll = ( accessToken) => {
+    return request("/expeditions?order=created_at.desc", "GET", null, {
+        headers: {
+            ...getAuthHeader(accessToken)
+        }
+    })
 }
 
 export const create = (data, accessToken) => {

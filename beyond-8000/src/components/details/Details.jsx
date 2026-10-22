@@ -5,6 +5,7 @@ import AuthContext from "../../context/auth-context";
 
 
 
+
 export default function Details() {
     const {user, accessToken, isAuthenticated} = useContext(AuthContext)
     const { expeditionId } = useParams()
@@ -13,7 +14,7 @@ export default function Details() {
     const isOwner = user && user?.id === expedition?.user_id
 
     useEffect(() => {
-        request(`/expeditions?id=eq.${expeditionId}`)
+        request(`/expeditions?id=eq.${expeditionId}`, "GET", null)
             .then(result => {
                 setExpedition(result[0])
             })
