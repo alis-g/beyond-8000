@@ -1,7 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import request from "../../utils/requester";
 import AuthContext from "../../context/auth-context";
+import { expeditionApi } from "../../api";
 
 
 
@@ -10,6 +11,7 @@ export default function Details() {
     const {user, accessToken, isAuthenticated} = useContext(AuthContext)
     const { expeditionId } = useParams()
     const [expedition, setExpedition] = useState({})
+    const navigate = useNavigate()
 
     const isOwner = user && user?.id === expedition?.user_id
 
@@ -21,7 +23,22 @@ export default function Details() {
             .catch(err => alert(err))
     }, [expeditionId])
 
+const deleteExpeditionClickHandler = async (e) => {
+    e.preventDefault()
 
+    const confirmed = confirm(`Are yo sure you want to delete ${expedition.title} expedition?`)
+
+    if(!confirmed){
+        return
+    }
+
+    try {
+        await expeditionApi.remove(expeditionId, accessToken)
+        navigate('/expeditions')
+    } catch (error) {
+        alert(error.message)
+    }
+}
     return (
         <section id="details" className="section details-section">
             <div className="container details-grid">
@@ -64,7 +81,7 @@ export default function Details() {
                         {isAuthenticated && !isOwner && <button className="btn btn-primary btn-large">Join Expedition</button>}
                         {isOwner && ( <>
                         <Link to={`/edit/${expeditionId}`} className="btn btn-secondary btn-large">Edit</Link>
-                        <Link to={''} className="btn btn-danger btn-large">Delete</Link>
+                        <a href="#" className="btn btn-danger btn-large" onClick={deleteExpeditionClickHandler}>Delete</a>
                         </>)}
                         
                     </div>

@@ -23,6 +23,14 @@ export const update = async (expeditionId, data, accessToken) =>{
         }
     })
 }
+
+export const remove = async (expeditionId, accessToken) => {
+    return await request(`/expeditions?id=eq.${expeditionId}`, 'DELETE', null, {
+        headers:{
+            ...getAuthHeader(accessToken)
+        }
+    })
+}
 function getAuthHeader(accessToken) {
     return {
         ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {})
