@@ -12,11 +12,13 @@ import { authApi } from "./api"
 import AuthContext from "./context/auth-context"
 import Logout from "./components/logout/logout"
 import ExpeditionForm from "./components/expedition-form/ExpeditionForm"
+import MyExpeditions from "./components/my-expeditions/MyExpeditions"
+import useLocalStorage from "./hooks/useLocalStorage"
 
 
 function App() {
 
-    const [auth, setAuth] = useState(null)
+    const [auth, setAuth] = useLocalStorage('auth',null)
 
     const navigate = useNavigate()
 
@@ -70,6 +72,7 @@ function App() {
                 <Route path="/expeditions" element={<Expeditions />} />
                 <Route path="/create" element={<ExpeditionForm />} />
                 <Route path="/edit/:expeditionId" element={<ExpeditionForm />} />
+                <Route path="/my-expeditions" element={<MyExpeditions />} />
                 <Route path="/expeditions/:expeditionId" element={<Details />} />
                 <Route path="/register" element={<Register onRegister={register} />} />
                 <Route path="/login" element={<Login onLogin={login} />} />
