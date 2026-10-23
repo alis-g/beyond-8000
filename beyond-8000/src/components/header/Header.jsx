@@ -1,6 +1,5 @@
 import { Link } from "react-router";
-import { useAuth } from "../../context/auth-context";
-
+import useAuth from "../../hooks/useAuth";
 
 
 export default function Header() {
