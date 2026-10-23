@@ -1,8 +1,8 @@
 import { Link } from "react-router";
+import { useAuth } from "../../context/auth-context";
 
-export default function Register({
-    onRegister
-}) {
+export default function Register() {
+    const {register} = useAuth()
     const registerAction = (formData) => {
         const { email, password, confirmPassword } = Object.fromEntries(formData)
         if (password !== confirmPassword) {
@@ -13,7 +13,7 @@ export default function Register({
             alert("All fields are required!")
             return
         }
-        onRegister({email, password})
+        register({email, password})
     }
     return (
         <section id="register" className="auth-section">

@@ -1,8 +1,10 @@
 import { Link } from "react-router";
+import { useAuth } from "../../context/auth-context";
 
-export default function Header({
-    isAuth
-}) {
+
+
+export default function Header() {
+    const { isAuthenticated } = useAuth()
     return (
         <header className="header">
             <div className="container nav">
@@ -15,11 +17,11 @@ export default function Header({
                 <nav className="navigation">
                     <Link to="/">Home</Link>
                     <Link to="/expeditions">Expeditions</Link>
-                    {isAuth && <Link to="/my-expeditions">My Expeditions</Link>}
+                    {isAuthenticated && <Link to="/my-expeditions">My Expeditions</Link>}
                     
                 </nav>
                 <div className="nav-actions">
-                    {isAuth
+                    {isAuthenticated
                         ?
                         (<>
                             <Link to="/create" className="btn btn-primary">Create Expedition</Link>

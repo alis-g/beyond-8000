@@ -1,9 +1,9 @@
 import { Link } from "react-router"
+import { useAuth } from "../../context/auth-context"
 
-export default function Login({
-    onLogin
-}) {
+export default function Login() {
 
+    const {login} = useAuth()
 
     const loginAction = (formData) =>{
         const {email, password} = Object.fromEntries(formData)
@@ -13,7 +13,7 @@ export default function Login({
             return
         }
        
-        onLogin({email, password})
+        login({email, password})
     }
     return (
         <section id="login" className="auth-section">
