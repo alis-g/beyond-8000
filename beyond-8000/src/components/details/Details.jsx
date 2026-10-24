@@ -19,6 +19,8 @@ export default function Details() {
 
     const isOwner = user && user?.id === expedition?.user_id
 
+    const isFull = participants.length >= expedition.max_participants
+
     useEffect(() => {
         request(`/expeditions?id=eq.${expeditionId}`, "GET", null)
             .then(result => {
@@ -111,10 +113,11 @@ export default function Details() {
                                 )
                                 : (
                                     <button
-                                        className="btn btn-primary btn-large"
+                                        className={`btn btn-large ${isFull ? "btn-disabled" : "btn-primary"}`}
                                         onClick={joinHandler}
+                                        disabled={isFull}
                                     >
-                                        Join Expedition
+                                        {isFull ? 'Expedition full' : 'Join Expedition'}                                    
                                     </button>
                                 )
                         )}
