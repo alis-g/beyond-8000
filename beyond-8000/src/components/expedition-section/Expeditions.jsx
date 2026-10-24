@@ -1,19 +1,12 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
-import AuthContext from "../../context/auth-context";
-import { expeditionApi } from "../../api";
+import useExpeditions from "../../hooks/useExpeditions";
 
 
 
 export default function Expeditions() {
-    const {accessToken} = useContext(AuthContext)
-    const [expeditions, setExpeditions] = useState([]);
-    useEffect(()=> {
-        expeditionApi.getAll(accessToken)
-        .then(setExpeditions)
-        .catch(error => alert(error))
-    }, [])
+    const { expeditions, getParticipantsCount } = useExpeditions()
     return (
         <section id="expeditions" className="section expeditions-section">
             <div className="container">
@@ -28,9 +21,15 @@ export default function Expeditions() {
                 </div>
                 <div className="expedition-grid">
                     {expeditions.length > 0
-                    ? expeditions.map(exp => <ExpeditionCard key={exp.id} {...exp} />)
-                : <h3> No Added Expeditions</h3> }
-                    
+                        ? expeditions.map(exp => (
+                            <ExpeditionCard
+                                key={exp.id}
+                                {...exp}
+                                participants={getParticipantsCount(exp.id)}
+                            />
+                        ))
+                        : <h3>No Added Expeditions</h3>
+                    }
                 </div>
             </div>
         </section>

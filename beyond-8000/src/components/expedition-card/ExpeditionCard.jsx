@@ -11,6 +11,7 @@ export default function ExpeditionCard({
     max_participants,
     image_url,
     description,
+    participants = 0,
 }
 ) {
     return (
@@ -48,7 +49,7 @@ export default function ExpeditionCard({
                         <span>👤</span>
                     </div>
                     <span>
-                        <strong>0 / {max_participants}</strong> joined
+                        <strong>{participants} / {max_participants}</strong> joined
                     </span>
                 </div>
                 <Link to={`/expeditions/${id}`} className="btn btn-card">

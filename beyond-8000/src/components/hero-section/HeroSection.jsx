@@ -2,23 +2,13 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
 import request from "../../utils/requester.js";
+import useExpeditions from "../../hooks/useExpeditions.js";
 
 
 export default function HeroSection() {
 
-    const [latestExpeditions , setLatestExpeditions] = useState([])
-
-
-    useEffect(()=>{
-        const abortController = new AbortController()
-        request('/expeditions?order=created_at.desc&limit=3', 'GET', null)
-        .then(setLatestExpeditions)
-        .catch(err => alert(err))
-
-        return () => {
-            abortController.abort("Home component unmounted")
-        }
-    }, [])
+    const { expeditions, getParticipantsCount } = useExpeditions()
+    const latestExpeditions = expeditions.slice(0, 3)
 
     return (
         <>
@@ -92,10 +82,16 @@ export default function HeroSection() {
                     </div>
 
                     <div className="expedition-grid">
-                        {latestExpeditions.length > 0 
-                        ? latestExpeditions.map(exp => <ExpeditionCard key={exp.id} {...exp} />)
-                        : <p> No expeditions yet</p>
-                    }
+                        {latestExpeditions.length > 0
+                            ? latestExpeditions.map(exp => (
+                                <ExpeditionCard
+                                    key={exp.id}
+                                    {...exp}
+                                    participants={getParticipantsCount(exp.id)}
+                                />
+                            ))
+                            : <p>No expeditions yet</p>
+                        }
                     </div>
                 </div>
             </section>
