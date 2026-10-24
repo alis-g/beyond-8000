@@ -9,8 +9,6 @@ export default function ExpeditionCard({
     duration,
     altitude,
     max_participants,
-    start_date,
-    end_date,
     image_url,
     description,
 }
@@ -23,7 +21,6 @@ export default function ExpeditionCard({
                     alt={mountain}
                 />
                 <span className="difficulty hard">{difficulty}</span>
-                <button className="like-button">♡</button>
             </div>
             <div className="card-content">
                 <div className="location">
