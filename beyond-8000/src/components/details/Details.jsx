@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import request from "../../utils/requester";
 import AuthContext from "../../context/auth-context";
-import { expeditionApi } from "../../api";
+import { expeditionApi, participantsApi } from "../../api";
 
 
 
@@ -48,8 +48,8 @@ export default function Details() {
     }
     const joinHandler = async () => {
         try {
-            await expeditionApi.join(expeditionId, user.id, accessToken)
-            alert('You joined the expedition')
+            await participantsApi.join(expeditionId, user.id, accessToken)
+            
             const result = await request(`/participants?expedition_id=eq.${expeditionId}`)
             setParticipants(result)
         } catch (error) {
