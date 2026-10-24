@@ -3,6 +3,8 @@ import { Link, useNavigate, useParams } from "react-router";
 import request from "../../utils/requester";
 import AuthContext from "../../context/auth-context";
 import { expeditionApi, participantsApi } from "../../api";
+import useParticipants from "../../hooks/useParticipants";
+import { toast } from "react-toastify";
 
 
 
@@ -13,7 +15,7 @@ export default function Details() {
     const [expedition, setExpedition] = useState({})
     const navigate = useNavigate()
 
-    const [participants, setParticipants] = useState([])
+    const { participants, isParticipant, join, leave } = useParticipants(expeditionId)
 
     const isOwner = user && user?.id === expedition?.user_id
 
@@ -22,12 +24,7 @@ export default function Details() {
             .then(result => {
                 setExpedition(result[0])
             })
-            .catch(err => alert(err))
-        request(`/participants?expedition_id=eq.${expeditionId}`)
-            .then(result => {
-                setParticipants(result)
-            })
-            .catch(err => alert(err))
+            .catch(err => toast.error(err.message))
     }, [expeditionId])
 
     const deleteExpeditionClickHandler = async (e) => {
@@ -43,17 +40,24 @@ export default function Details() {
             await expeditionApi.remove(expeditionId)
             navigate('/expeditions')
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
         }
     }
     const joinHandler = async () => {
         try {
-            await participantsApi.join(expeditionId, user.id)
-            
-            const result = await request(`/participants?expedition_id=eq.${expeditionId}`)
-            setParticipants(result)
+            await join(user.id)
+            toast.success("You joined successfully")
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
+        }
+    }
+
+    const leaveHandler = async () => {
+        try {
+            await leave(user.id)
+            toast.success("You left successfully")
+        } catch (error) {
+            toast(error.message)
         }
     }
     return (
@@ -96,8 +100,15 @@ export default function Details() {
                     </div>
                     <div className="details-actions">
                         {isAuthenticated && !isOwner && (
-                            participants.some(participant => participant.user_id === user.id)
-                                ? <span className="btn btn-primary btn-large">✓ You joined</span>
+                            isParticipant(user.id)
+                                ? (
+                                    <button
+                                        className="btn btn-secondary btn-large"
+                                        onClick={leaveHandler}
+                                    >
+                                        Leave Expedition
+                                    </button>
+                                )
                                 : (
                                     <button
                                         className="btn btn-primary btn-large"
