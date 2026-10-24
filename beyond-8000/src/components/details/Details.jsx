@@ -8,10 +8,12 @@ import { expeditionApi } from "../../api";
 
 
 export default function Details() {
-    const {user, accessToken, isAuthenticated} = useContext(AuthContext)
+    const { user, accessToken, isAuthenticated } = useContext(AuthContext)
     const { expeditionId } = useParams()
     const [expedition, setExpedition] = useState({})
     const navigate = useNavigate()
+
+    const [participants, setParticipants] = useState([])
 
     const isOwner = user && user?.id === expedition?.user_id
 
@@ -21,24 +23,39 @@ export default function Details() {
                 setExpedition(result[0])
             })
             .catch(err => alert(err))
+        request(`/participants?expedition_id=eq.${expeditionId}`)
+            .then(result => {
+                setParticipants(result)
+            })
+            .catch(err => alert(err))
     }, [expeditionId])
 
-const deleteExpeditionClickHandler = async (e) => {
-    e.preventDefault()
+    const deleteExpeditionClickHandler = async (e) => {
+        e.preventDefault()
 
-    const confirmed = confirm(`Are yo sure you want to delete ${expedition.title} expedition?`)
+        const confirmed = confirm(`Are yo sure you want to delete ${expedition.title} expedition?`)
 
-    if(!confirmed){
-        return
+        if (!confirmed) {
+            return
+        }
+
+        try {
+            await expeditionApi.remove(expeditionId, accessToken)
+            navigate('/expeditions')
+        } catch (error) {
+            alert(error.message)
+        }
     }
-
-    try {
-        await expeditionApi.remove(expeditionId, accessToken)
-        navigate('/expeditions')
-    } catch (error) {
-        alert(error.message)
+    const joinHandler = async () => {
+        try {
+            await expeditionApi.join(expeditionId, user.id, accessToken)
+            alert('You joined the expedition')
+            const result = await request(`/participants?expedition_id=eq.${expeditionId}`)
+            setParticipants(result)
+        } catch (error) {
+            alert(error.message)
+        }
     }
-}
     return (
         <section id="details" className="section details-section">
             <div className="container details-grid">
@@ -70,7 +87,7 @@ const deleteExpeditionClickHandler = async (e) => {
                         </div>
                         <div>
                             <span>Participants</span>
-                            <strong>18 / {expedition.max_participants}</strong>
+                            <strong>{participants.length} / {expedition.max_participants}</strong>
                         </div>
                         <div>
                             <span>Start date</span>
@@ -78,16 +95,27 @@ const deleteExpeditionClickHandler = async (e) => {
                         </div>
                     </div>
                     <div className="details-actions">
-                        {isAuthenticated && !isOwner && <button className="btn btn-primary btn-large">Join Expedition</button>}
-                        {isOwner && ( <>
-                        <Link to={`/edit/${expeditionId}`} className="btn btn-secondary btn-large">Edit</Link>
-                        <a href="#" className="btn btn-danger btn-large" onClick={deleteExpeditionClickHandler}>Delete</a>
+                        {isAuthenticated && !isOwner && (
+                            participants.some(participant => participant.user_id === user.id)
+                                ? <span className="btn btn-primary btn-large">✓ You joined</span>
+                                : (
+                                    <button
+                                        className="btn btn-primary btn-large"
+                                        onClick={joinHandler}
+                                    >
+                                        Join Expedition
+                                    </button>
+                                )
+                        )}
+                        {isOwner && (<>
+                            <Link to={`/edit/${expeditionId}`} className="btn btn-secondary btn-large">Edit</Link>
+                            <a href="#" className="btn btn-danger btn-large" onClick={deleteExpeditionClickHandler}>Delete</a>
                         </>)}
-                        
+
                     </div>
                     <p className="spots">
                         <span />
-                        Only 2 spots remaining
+                        Only {expedition.max_participants - participants.length} spots remaining
                     </p>
                 </div>
             </div>

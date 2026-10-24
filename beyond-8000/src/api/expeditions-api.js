@@ -31,6 +31,17 @@ export const remove = async (expeditionId, accessToken) => {
         }
     })
 }
+
+export const join = (expeditionId, userId, accessToken) => {
+    return request('/participants', 'POST', {
+        expedition_id: expeditionId,
+        user_id: userId
+    },{
+        headers:{
+            ...getAuthHeader(accessToken)
+        }
+    })
+}
 function getAuthHeader(accessToken) {
     return {
         ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {})
