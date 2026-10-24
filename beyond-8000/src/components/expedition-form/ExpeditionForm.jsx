@@ -19,7 +19,6 @@ const initialValues = {
 }
 
 export default function ExpeditionForm() {
-    const { accessToken } = useContext(AuthContext)
     const navigate = useNavigate()
     const [values, setValues] = useState(initialValues)
     const { expeditionId } = useParams()
@@ -45,9 +44,9 @@ export default function ExpeditionForm() {
     const submitAction = async () => {
         try {
             if (isEdit) {
-                await expeditionApi.update(expeditionId, values, accessToken)
+                await expeditionApi.update(expeditionId, values)
             } else {
-                await expeditionApi.create(values, accessToken)
+                await expeditionApi.create(values)
             }
             navigate('/expeditions')
         } catch (error) {

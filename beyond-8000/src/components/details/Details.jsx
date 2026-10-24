@@ -8,7 +8,7 @@ import { expeditionApi, participantsApi } from "../../api";
 
 
 export default function Details() {
-    const { user, accessToken, isAuthenticated } = useContext(AuthContext)
+    const { user, isAuthenticated } = useContext(AuthContext)
     const { expeditionId } = useParams()
     const [expedition, setExpedition] = useState({})
     const navigate = useNavigate()
@@ -40,7 +40,7 @@ export default function Details() {
         }
 
         try {
-            await expeditionApi.remove(expeditionId, accessToken)
+            await expeditionApi.remove(expeditionId)
             navigate('/expeditions')
         } catch (error) {
             alert(error.message)
@@ -48,7 +48,7 @@ export default function Details() {
     }
     const joinHandler = async () => {
         try {
-            await participantsApi.join(expeditionId, user.id, accessToken)
+            await participantsApi.join(expeditionId, user.id)
             
             const result = await request(`/participants?expedition_id=eq.${expeditionId}`)
             setParticipants(result)

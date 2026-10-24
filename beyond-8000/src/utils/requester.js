@@ -1,5 +1,4 @@
 
-
 const restUrl = 'https://xjwdjtcpljkqunpicjky.supabase.co/rest/v1'
 const authUrl = 'https://xjwdjtcpljkqunpicjky.supabase.co/auth/v1'
 
@@ -10,7 +9,8 @@ async function baseRequest(url, path ='/', method = 'GET', data = null, opt = {}
         headers: {
             ...opt.headers,
             apiKey: import.meta.env.VITE_API_KEY,
-            Prefer: 'return=representation'
+            Prefer: 'return=representation',
+            ...getAuthHeader()
         },
         
     }
@@ -42,4 +42,13 @@ export default async function request(path='/', method = "GET", data = null, opt
 
 export const authRequest = async(path='/', method = "GET", data = null, opt = {}) => {
     return baseRequest(authUrl, path, method, data, opt)
+}
+
+function getAuthHeader() {
+    const auth = localStorage.getItem("auth");
+    const accessToken = auth ? JSON.parse(auth).access_token : null;
+
+    return {
+        ...(accessToken ? { Authorization: `Bearer ${accessToken}` } : {})
+    };
 }
