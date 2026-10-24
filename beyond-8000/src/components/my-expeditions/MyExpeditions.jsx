@@ -1,11 +1,15 @@
-
 import useAuth from "../../hooks/useAuth";
 import useExpeditions from "../../hooks/useExpeditions";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
 
 export default function MyExpeditions() {
     const { user } = useAuth()
-    const { expeditions, getParticipantsCount } = useExpeditions()
+    const {
+        expeditions,
+        participants,
+        getParticipantsCount
+    } = useExpeditions()
+
     return (
         <section id="my-expeditions" className="section expeditions-section">
             <div className="container">
@@ -17,7 +21,6 @@ export default function MyExpeditions() {
                     </div>
                 </div>
 
-
                 {/* Created Expeditions */}
                 <div className="my-expeditions-group">
                     <h2 className="my-expeditions-title created-title">
@@ -25,13 +28,18 @@ export default function MyExpeditions() {
                     </h2>
 
                     <div className="expedition-grid">
-
-                        {expeditions.filter(exp => exp.user_id === user.id)
-                            .map(exp => (<ExpeditionCard key={exp.id} {...exp} participants={getParticipantsCount(exp.id)} />))}
-
+                        {expeditions
+                            .filter(exp => exp.user_id === user.id)
+                            .map(exp => (
+                                <ExpeditionCard
+                                    key={exp.id}
+                                    {...exp}
+                                    participants={getParticipantsCount(exp.id)}
+                                />
+                            ))
+                        }
                     </div>
                 </div>
-
 
                 {/* Joined Expeditions */}
                 <div className="my-expeditions-group">
@@ -40,8 +48,21 @@ export default function MyExpeditions() {
                     </h2>
 
                     <div className="expedition-grid">
-
-                       <ExpeditionCard />
+                        {expeditions
+                            .filter(exp =>
+                                participants.some(participant =>
+                                    participant.user_id === user.id &&
+                                    participant.expedition_id === exp.id
+                                )
+                            )
+                            .map(exp => (
+                                <ExpeditionCard
+                                    key={exp.id}
+                                    {...exp}
+                                    participants={getParticipantsCount(exp.id)}
+                                />
+                            ))
+                        }
                     </div>
                 </div>
 

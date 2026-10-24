@@ -31,6 +31,7 @@ export default function useExpeditions() {
 
     return {
         expeditions,
+        participants,
         getParticipantsCount
     };
 }
