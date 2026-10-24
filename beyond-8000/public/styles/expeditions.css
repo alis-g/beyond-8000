@@ -186,3 +186,37 @@
 .card-actions .btn {
     flex: 1;
 }
+
+.my-expeditions-group {
+    margin-top: 55px;
+}
+
+.my-expeditions-title {
+    margin-bottom: 28px;
+    font-size: 28px;
+}
+
+.created-title {
+    color: #1e3a8a;
+}
+
+.joined-title {
+    color: #b45309;
+}
+
+.my-expeditions-title {
+    margin: 0 0 28px;
+    padding: 14px 20px;
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+    border-radius: 6px;
+}
+
+.created-title {
+    background: #22a8a8;
+}
+
+.joined-title {
+    background: #25dcdc;
+}

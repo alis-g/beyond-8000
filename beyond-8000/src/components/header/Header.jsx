@@ -18,6 +18,7 @@ export default function Header() {
                     <Link to="/expeditions">Expeditions</Link>
                     {isAuthenticated && <Link to="/my-expeditions">My Expeditions</Link>}
                     
+                    
                 </nav>
                 <div className="nav-actions">
                     {isAuthenticated
