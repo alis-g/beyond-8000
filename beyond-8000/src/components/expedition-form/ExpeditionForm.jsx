@@ -3,6 +3,9 @@ import { expeditionApi } from "../../api";
 import { useNavigate, useParams } from "react-router";
 import request from "../../utils/requester";
 
+import { toast } from "react-toastify";
+import { validateForm } from "../../helpers";
+
 const initialValues = {
     title: '',
     mountain: '',
@@ -39,23 +42,31 @@ export default function ExpeditionForm() {
         }))
     }
 
-    const submitAction = async () => {
+    const submitAction = async (e) => {
+        
+        if (!validateForm.createEdit(values)) {
+            return
+        }
         try {
             if (isEdit) {
                 await expeditionApi.update(expeditionId, values)
             } else {
                 await expeditionApi.create(values)
             }
+            toast.success(
+                isEdit
+                    ? "Expedition updated successfully!"
+                    : "Expedition created successfully!"
+            );
+
             navigate('/expeditions')
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
         }
-        const altitude = Number(formData.altitude)
 
-if (!Number.isInteger(altitude)) {
-    toast.error("Altitude must be a whole number. Decimals are not allowed.")
-    return
-}
+
+
+
     }
     return (
         <section
@@ -77,7 +88,7 @@ if (!Number.isInteger(altitude)) {
                                 adventurers.
                             </p>
                         </>)}
-                   
+
                 </div>
                 <form className="expedition-form" action={submitAction}>
                     <div className="form-row">
@@ -108,7 +119,7 @@ if (!Number.isInteger(altitude)) {
                             <label>Difficulty</label>
                             <input type="text"
                                 name="difficulty"
-                                placeholder="e.g Easy"
+                                placeholder="e.g Easy, Hard..."
                                 value={values.difficulty} onChange={changeHandler} />
                         </div>
                     </div>
@@ -160,7 +171,7 @@ if (!Number.isInteger(altitude)) {
                         />
                     </div>
                     <button className="btn btn-primary btn-large" type="submit">
-                       {isEdit ? "Edit Expedition" : "Create Expedition"} 
+                        {isEdit ? "Edit Expedition" : "Create Expedition"}
                     </button>
                 </form>
             </div>

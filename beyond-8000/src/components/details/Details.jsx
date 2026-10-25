@@ -48,7 +48,7 @@ export default function Details() {
     const joinHandler = async () => {
         try {
             await join(user.id)
-            toast.success("You joined successfully")
+            toast.success("You joined successfully", {position:"top-center"})
         } catch (error) {
             toast.error(error.message)
         }
@@ -57,7 +57,7 @@ export default function Details() {
     const leaveHandler = async () => {
         try {
             await leave(user.id)
-            toast.success("You left successfully")
+            toast.success("You left successfully", {position:"top-center"})
         } catch (error) {
             toast(error.message)
         }

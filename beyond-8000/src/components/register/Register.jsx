@@ -1,20 +1,18 @@
 import { Link } from "react-router";
 import  useAuth  from "../../hooks/useAuth";
+import { validateForm } from "../../helpers";
+import { toast } from "react-toastify";
 
 
 export default function Register() {
     const {register} = useAuth()
     const registerAction = (formData) => {
         const { email, password, confirmPassword } = Object.fromEntries(formData)
-        if (password !== confirmPassword) {
-            alert("Passwords should match")
-            return
-        }
-        if (!email || !password || !confirmPassword) {
-            alert("All fields are required!")
+        if(!validateForm.register(email, password, confirmPassword)){
             return
         }
         register({email, password})
+        return toast.success("Your registration is successful")
     }
     return (
         <section id="register" className="auth-section">

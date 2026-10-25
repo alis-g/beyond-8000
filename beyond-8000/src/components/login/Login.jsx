@@ -1,6 +1,7 @@
 import { Link } from "react-router"
 import  useAuth  from "../../hooks/useAuth"
 import { toast } from "react-toastify"
+import { validateForm } from "../../helpers"
 
 
 export default function Login() {
@@ -10,12 +11,13 @@ export default function Login() {
     const loginAction = (formData) =>{
         const {email, password} = Object.fromEntries(formData)
 
-        if(!email || !password){
-            toast.error('Email and password are required!')
+        if(!validateForm.login(email, password)){
             return
         }
        
         login({email, password})
+        toast.success("Login successful")
+     
     }
     return (
         <section id="login" className="auth-section">
