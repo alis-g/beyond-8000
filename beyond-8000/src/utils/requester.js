@@ -26,12 +26,18 @@ async function baseRequest(url, path ='/', method = 'GET', data = null, opt = {}
 
     const response = await fetch(`${url}${path}`, options)
 
-    if(!response.ok){
-        throw new Error(`HTTP error! status: ${response.status}`)
+    if (!response.ok) {
+    if (response.status === 401) {
+        localStorage.removeItem("auth");
+        window.location.href = "/login";
     }
+
+    throw new Error(`HTTP error! status: ${response.status}`)
+}
     if(response.status === 204){
         return null
     }
+    
 
     return response.json()
 }

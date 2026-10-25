@@ -1,5 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import AuthContext from "../../context/auth-context";
+import { useEffect, useState } from "react";
 import { expeditionApi } from "../../api";
 import { useNavigate, useParams } from "react-router";
 import request from "../../utils/requester";
@@ -13,7 +12,6 @@ const initialValues = {
     altitude: '',
     max_participants: '',
     start_date: '',
-    end_date: '',
     image_url: '',
     description: ''
 }
@@ -52,6 +50,12 @@ export default function ExpeditionForm() {
         } catch (error) {
             alert(error.message)
         }
+        const altitude = Number(formData.altitude)
+
+if (!Number.isInteger(altitude)) {
+    toast.error("Altitude must be a whole number. Decimals are not allowed.")
+    return
+}
     }
     return (
         <section
@@ -137,12 +141,6 @@ export default function ExpeditionForm() {
                             <input type="date"
                                 name="start_date"
                                 value={values.start_date} onChange={changeHandler} />
-                        </div>
-                        <div className="form-group">
-                            <label>End date</label>
-                            <input type="date"
-                                name="end_date"
-                                value={values.end_date} onChange={changeHandler} />
                         </div>
                     </div>
                     <div className="form-group">

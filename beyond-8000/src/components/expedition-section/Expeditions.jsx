@@ -15,9 +15,6 @@ export default function Expeditions() {
                         <span className="eyebrow">DISCOVER YOUR NEXT ADVENTURE</span>
                         <h2>Upcoming Expeditions</h2>
                     </div>
-                    <Link to='/' className="view-all">
-                        View all expeditions →
-                    </Link>
                 </div>
                 <div className="expedition-grid">
                     {expeditions.length > 0

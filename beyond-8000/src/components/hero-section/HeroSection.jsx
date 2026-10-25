@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+
 import { Link } from "react-router";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
 import useExpeditions from "../../hooks/useExpeditions.js";
@@ -75,12 +75,13 @@ export default function HeroSection() {
                             <h2>Latest Expeditions</h2>
                         </div>
 
-                        <Link to="/expeditions" className="btn btn-ghost">
-                            View All →
+                        <Link to='/expeditions' className="view-all">
+                            View all expeditions →
                         </Link>
                     </div>
 
                     <div className="expedition-grid">
+                        
                         {latestExpeditions.length > 0
                             ? latestExpeditions.map(exp => (
                                 <ExpeditionCard
