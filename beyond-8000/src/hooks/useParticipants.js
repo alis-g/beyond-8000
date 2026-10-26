@@ -16,7 +16,7 @@ export default function useParticipants(expeditionId) {
                     )
                 );
             } catch (error) {
-                toast(error.message);
+                toast.error(error.message);
             }
         };
 

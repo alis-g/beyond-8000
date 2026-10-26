@@ -26,7 +26,7 @@ export function AuthProvider({
             setAuth(result)
             
             navigate('/')
-            return toast.success("Your registration is successful")
+             toast.success("Your registration is successful")
 
         } catch (error) {
             if (error.message.includes('422')) {

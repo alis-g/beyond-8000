@@ -5,7 +5,6 @@ import AuthContext from "../../context/auth-context";
 import { expeditionApi } from "../../api";
 import useParticipants from "../../hooks/useParticipants";
 import { toast } from "react-toastify";
-import useExpeditions from "../../hooks/useExpeditions";
 import Spinner from "../spinner/Spinner";
 
 export default function Details() {
@@ -67,7 +66,7 @@ export default function Details() {
             await leave(user.id)
             toast.success("You left successfully", {position:"top-center"})
         } catch (error) {
-            toast(error.message)
+            toast.error(error.message)
         }
     }
     return (
