@@ -1,4 +1,4 @@
-import { toast } from "react-toastify"
+
 
 const restUrl = 'https://xjwdjtcpljkqunpicjky.supabase.co/rest/v1'
 const authUrl = 'https://xjwdjtcpljkqunpicjky.supabase.co/auth/v1'

@@ -6,9 +6,6 @@ import { expeditionApi } from "../../api";
 import useParticipants from "../../hooks/useParticipants";
 import { toast } from "react-toastify";
 
-
-
-
 export default function Details() {
     const { user, isAuthenticated } = useContext(AuthContext)
     const { expeditionId } = useParams()

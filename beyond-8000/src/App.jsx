@@ -11,6 +11,7 @@ import ExpeditionForm from "./components/expedition-form/ExpeditionForm"
 import MyExpeditions from "./components/my-expeditions/MyExpeditions"
 import { AuthProvider } from "./context/auth-context"
 import { ToastContainer } from "react-toastify"
+import NotFound from "./components/not-found/NotFound"
 
 function App() {
 
@@ -29,6 +30,7 @@ function App() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/logout" element={<Logout />} />
+                <Route path="*" element={<NotFound />} />
             </Routes>
 
             <ToastContainer />

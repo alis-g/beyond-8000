@@ -2,8 +2,6 @@ import { Link } from "react-router";
 import  useAuth  from "../../hooks/useAuth";
 import { validateForm } from "../../helpers";
 
-
-
 export default function Register() {
     const {register} = useAuth()
     const registerAction = (formData) => {
