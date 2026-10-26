@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router";
 import request from "../../utils/requester";
 import AuthContext from "../../context/auth-context";
-import { expeditionApi, participantsApi } from "../../api";
+import { expeditionApi } from "../../api";
 import useParticipants from "../../hooks/useParticipants";
 import { toast } from "react-toastify";
 

@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router";
 import { authApi } from "../api";

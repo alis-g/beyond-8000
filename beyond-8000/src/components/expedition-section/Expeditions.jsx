@@ -1,5 +1,3 @@
-import { useContext, useEffect, useState } from "react";
-import { Link } from "react-router";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
 import useExpeditions from "../../hooks/useExpeditions";
 

@@ -6,18 +6,13 @@ import HeroSection from "./components/hero-section/HeroSection"
 import Details from "./components/details/Details"
 import Login from "./components/login/Login"
 import Register from "./components/register/Register"
-
 import Logout from "./components/logout/logout"
 import ExpeditionForm from "./components/expedition-form/ExpeditionForm"
 import MyExpeditions from "./components/my-expeditions/MyExpeditions"
 import { AuthProvider } from "./context/auth-context"
 import { ToastContainer } from "react-toastify"
 
-
-
-
 function App() {
-
 
     return (
         <AuthProvider>
