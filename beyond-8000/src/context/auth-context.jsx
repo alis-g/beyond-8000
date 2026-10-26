@@ -33,7 +33,7 @@ export function AuthProvider({
             toast.error('Email already exists')
             return
         }
-            alert(error.message)
+            toast.error(error.message)
         }
     }
 
@@ -42,18 +42,19 @@ export function AuthProvider({
             const result = await authApi.login(userData)
             setAuth(result)
             navigate('/')
+            toast.success('Login successful')
 
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
         }
     }
 
     const logoutAction = async () => {
         try {
             await authApi.logout(auth?.access_token)
-            
+            toast.success('Logout successful')
         } catch (error) {
-            alert(error.message)
+            toast.error(error.message)
         } finally {
             setAuth(null)
         }
