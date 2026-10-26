@@ -5,12 +5,16 @@ import AuthContext from "../../context/auth-context";
 import { expeditionApi } from "../../api";
 import useParticipants from "../../hooks/useParticipants";
 import { toast } from "react-toastify";
+import useExpeditions from "../../hooks/useExpeditions";
+import Spinner from "../spinner/Spinner";
 
 export default function Details() {
     const { user, isAuthenticated } = useContext(AuthContext)
     const { expeditionId } = useParams()
     const [expedition, setExpedition] = useState({})
+    const [loading, setLoading] = useState(true)
     const navigate = useNavigate()
+    
 
     const { participants, isParticipant, join, leave } = useParticipants(expeditionId)
 
@@ -24,7 +28,14 @@ export default function Details() {
                 setExpedition(result[0])
             })
             .catch(err => toast.error(err.message))
+            .finally(() => {
+                setLoading(false)
+            })
     }, [expeditionId])
+
+    if(loading){
+        return <Spinner />
+    }
 
     const deleteExpeditionClickHandler = async (e) => {
         e.preventDefault()

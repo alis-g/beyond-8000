@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 export default function useExpeditions() {
     const [expeditions, setExpeditions] = useState([]);
     const [participants, setParticipants] = useState([]);
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const loadData = async () => {
@@ -17,6 +18,8 @@ export default function useExpeditions() {
                 setParticipants(participantsResult);
             } catch (error) {
                 toast.error(error);
+            } finally {
+                setLoading(false)
             }
         };
 
@@ -32,6 +35,7 @@ export default function useExpeditions() {
     return {
         expeditions,
         participants,
-        getParticipantsCount
+        getParticipantsCount,
+        loading
     };
 }

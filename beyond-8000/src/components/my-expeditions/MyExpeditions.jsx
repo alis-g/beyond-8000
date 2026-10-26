@@ -2,6 +2,7 @@ import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useExpeditions from "../../hooks/useExpeditions";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
+import Spinner from "../spinner/Spinner";
 
 
 export default function MyExpeditions() {
@@ -10,7 +11,8 @@ export default function MyExpeditions() {
     const {
         expeditions,
         participants,
-        getParticipantsCount
+        getParticipantsCount,
+        loading
     } = useExpeditions();
 
     const createdExpeditions = expeditions.filter(
@@ -25,6 +27,10 @@ export default function MyExpeditions() {
                     participant.expedition_id === exp.id
             )
     );
+
+    if(loading){
+        return <Spinner />
+    }
 
     return (
         <section id="my-expeditions" className="section expeditions-section">

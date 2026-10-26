@@ -44,7 +44,7 @@ function App() {
                     </GuestRoute>} />
                 <Route path="/login" element={
                     <GuestRoute>
-                        <Register />
+                        <Login />
                     </GuestRoute>} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/404" element={<NotFound />} />

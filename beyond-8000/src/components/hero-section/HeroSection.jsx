@@ -2,12 +2,16 @@
 import { Link } from "react-router";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
 import useExpeditions from "../../hooks/useExpeditions.js";
+import Spinner from "../spinner/Spinner.jsx";
 
 
 export default function HeroSection() {
 
-    const { expeditions, getParticipantsCount } = useExpeditions()
+    const { expeditions, getParticipantsCount, loading } = useExpeditions()
     const latestExpeditions = expeditions.slice(0, 3)
+    if(loading){
+        return <Spinner />
+    }
 
     return (
         <>

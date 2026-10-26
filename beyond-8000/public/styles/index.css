@@ -8,4 +8,5 @@
 @import "./auth.css";
 @import "./footer.css";
 @import "./responsive.css";
-@import "./not-found.css"
+@import "./not-found.css";
+@import "./spinner.css";

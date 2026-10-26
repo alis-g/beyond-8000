@@ -1,10 +1,12 @@
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
 import useExpeditions from "../../hooks/useExpeditions";
-
-
+import Spinner from "../spinner/Spinner";
 
 export default function Expeditions() {
-    const { expeditions, getParticipantsCount } = useExpeditions()
+    const { expeditions, getParticipantsCount, loading } = useExpeditions()
+    if(loading){
+        return <Spinner />
+    }
     return (
         <section id="expeditions" className="section expeditions-section">
             <div className="container">

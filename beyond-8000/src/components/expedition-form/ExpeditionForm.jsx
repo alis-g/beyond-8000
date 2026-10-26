@@ -22,6 +22,7 @@ const initialValues = {
 export default function ExpeditionForm() {
     const navigate = useNavigate()
     const [values, setValues] = useState(initialValues)
+    const [loading, setLoading] = useState(true)
     const { expeditionId } = useParams()
 
     const isEdit = Boolean(expeditionId)
@@ -30,9 +31,11 @@ export default function ExpeditionForm() {
         if (!isEdit) {
             return
         }
+        setLoading(true)
         request(`/expeditions?id=eq.${expeditionId}`)
             .then(data => setValues(data[0]))
             .catch(error => alert(error.message))
+            .finally(() => setLoading(false))
     }, [expeditionId, isEdit])
 
     const changeHandler = (e) => {
