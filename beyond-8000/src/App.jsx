@@ -12,6 +12,8 @@ import MyExpeditions from "./components/my-expeditions/MyExpeditions"
 import { AuthProvider } from "./context/auth-context"
 import { ToastContainer } from "react-toastify"
 import NotFound from "./components/not-found/NotFound"
+import GuestRoute from "./components/route-guards/GuestRoute"
+import PrivateRoute from "./components/route-guards/PrivateRoute"
 
 function App() {
 
@@ -23,13 +25,29 @@ function App() {
             <Routes>
                 <Route path="/" element={<HeroSection />} />
                 <Route path="/expeditions" element={<Expeditions />} />
-                <Route path="/create" element={<ExpeditionForm />} />
-                <Route path="/edit/:expeditionId" element={<ExpeditionForm />} />
-                <Route path="/my-expeditions" element={<MyExpeditions />} />
+                <Route path="/create" element={
+                    <PrivateRoute>
+                        <ExpeditionForm />
+                    </PrivateRoute>} />
+                <Route path="/edit/:expeditionId" element={
+                    <PrivateRoute>
+                        <ExpeditionForm />
+                    </PrivateRoute>} />
+                <Route path="/my-expeditions" element={
+                    <PrivateRoute>
+                        <MyExpeditions />
+                    </PrivateRoute>} />
                 <Route path="/expeditions/:expeditionId" element={<Details />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={
+                    <GuestRoute>
+                        <Register />
+                    </GuestRoute>} />
+                <Route path="/login" element={
+                    <GuestRoute>
+                        <Register />
+                    </GuestRoute>} />
                 <Route path="/logout" element={<Logout />} />
+                <Route path="/404" element={<NotFound />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
 
