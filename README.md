@@ -5,7 +5,7 @@
 [https://your-live-project-url.com/](https://your-live-project-url.com/)
 
 ## GitHub Repository
-
+https://github.com/alis-g/beyond-8000
 
 # Functional Guide
 
