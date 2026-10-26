@@ -1,14 +1,30 @@
+import { Link } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import useExpeditions from "../../hooks/useExpeditions";
 import ExpeditionCard from "../expedition-card/ExpeditionCard";
 
+
 export default function MyExpeditions() {
-    const { user } = useAuth()
+    const { user } = useAuth();
+
     const {
         expeditions,
         participants,
         getParticipantsCount
-    } = useExpeditions()
+    } = useExpeditions();
+
+    const createdExpeditions = expeditions.filter(
+        exp => exp.user_id === user.id
+    );
+
+    const joinedExpeditions = expeditions.filter(
+        exp =>
+            participants.some(
+                participant =>
+                    participant.user_id === user.id &&
+                    participant.expedition_id === exp.id
+            )
+    );
 
     return (
         <section id="my-expeditions" className="section expeditions-section">
@@ -28,15 +44,20 @@ export default function MyExpeditions() {
                     </h2>
 
                     <div className="expedition-grid">
-                        {expeditions
-                            .filter(exp => exp.user_id === user.id)
-                            .map(exp => (
+                        {createdExpeditions.length > 0
+                            ? createdExpeditions.map(exp => (
                                 <ExpeditionCard
                                     key={exp.id}
                                     {...exp}
                                     participants={getParticipantsCount(exp.id)}
                                 />
                             ))
+                            : (
+                                <p className="empty-message">
+                                    You haven't created any expeditions yet.
+                                    Start planning your next <Link to='/create' className="my-link">adventure...</Link>
+                                </p>
+                            )
                         }
                     </div>
                 </div>
@@ -48,20 +69,21 @@ export default function MyExpeditions() {
                     </h2>
 
                     <div className="expedition-grid">
-                        {expeditions
-                            .filter(exp =>
-                                participants.some(participant =>
-                                    participant.user_id === user.id &&
-                                    participant.expedition_id === exp.id
-                                )
-                            )
-                            .map(exp => (
+                        {joinedExpeditions.length > 0
+                            ? joinedExpeditions.map(exp => (
                                 <ExpeditionCard
                                     key={exp.id}
                                     {...exp}
                                     participants={getParticipantsCount(exp.id)}
                                 />
                             ))
+                            : (
+                                <p className="empty-message">
+                                    You haven't joined any expeditions yet.
+                                    Explore upcoming adventures and find your
+                                    next <Link to= '/expeditions' className="my-link">challenge.</Link>
+                                </p>
+                            )
                         }
                     </div>
                 </div>

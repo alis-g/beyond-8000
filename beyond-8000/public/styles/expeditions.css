@@ -220,3 +220,21 @@
 .joined-title {
     background: #25dcdc;
 }
+
+.empty-message {
+    grid-column: 1 / -1;
+    width: 100%;
+    color: #6b7280;
+    font-size: 20px;
+    padding: 20px 0;
+    font-weight: bold;
+}
+
+.my-link {
+    color: #019667;
+    text-decoration: underline
+}
+
+.my-link:hover {
+    color: #11cf96;
+}
