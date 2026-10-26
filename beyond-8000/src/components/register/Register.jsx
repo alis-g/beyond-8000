@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import  useAuth  from "../../hooks/useAuth";
 import { validateForm } from "../../helpers";
-import { toast } from "react-toastify";
+
 
 
 export default function Register() {
@@ -12,7 +12,7 @@ export default function Register() {
             return
         }
         register({email, password})
-        return toast.success("Your registration is successful")
+        
     }
     return (
         <section id="register" className="auth-section">

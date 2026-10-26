@@ -2,6 +2,7 @@ import { createContext, useContext } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useNavigate } from "react-router";
 import { authApi } from "../api";
+import { toast } from "react-toastify";
 
 
 const AuthContext = createContext({
@@ -23,10 +24,15 @@ export function AuthProvider({
         try {
             const result = await authApi.register(userData)
             setAuth(result)
-
+            
             navigate('/')
+            return toast.success("Your registration is successful")
 
         } catch (error) {
+            if (error.message.includes('422')) {
+            toast.error('Email already exists')
+            return
+        }
             alert(error.message)
         }
     }
