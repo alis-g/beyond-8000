@@ -1,7 +1,7 @@
 
 
-const restUrl = 'https://xjwdjtcpljkqunpicjky.supabase.co/rest/v1'
-const authUrl = 'https://xjwdjtcpljkqunpicjky.supabase.co/auth/v1'
+const restUrl = import.meta.env.VITE_SUPABASE_REST_URL
+const authUrl = import.meta.env.VITE_SUPABASE_AUTH_URL
 
 
 async function baseRequest(url, path ='/', method = 'GET', data = null, opt = {}) {
