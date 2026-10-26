@@ -2,7 +2,14 @@
 
 ## Live Demo
 
-[https://your-live-project-url.com/](https://your-live-project-url.com/)
+https://beyond-8000.ph0b0sch338.workers.dev
+
+## Test Account
+
+You can use the following account to test the application:
+
+- **Email:** example@abv.bg
+- **Password:** 123456
 
 ## GitHub Repository
 https://github.com/alis-g/beyond-8000
